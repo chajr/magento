@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Chajr_FreshSales>
+            <version>0.1.0</version>
+        </Chajr_FreshSales>
+    </modules>
+    <global>
+
+    </global>
+    <frontend>
+        
+    </frontend>
+
+</config>
