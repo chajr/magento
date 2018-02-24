@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Chajr_FreshSales>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Chajr_FreshSales>
+    </modules>
+</config>
