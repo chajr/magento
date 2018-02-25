@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <chajr_freshsales translate="label">
+            <label>Extensions</label>
+            <sort_order>100</sort_order>
+        </chajr_freshsales>
+    </tabs>
+    <sections>
+        <chajr_freshsales translate="label">
+            <label>FreshSales Settings</label>
+            <tab>chajr_freshsales</tab>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+            <groups>
+                <chajr_freshsales translate="label">
+                    <label>API settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+
+                    <fields>
+                        <chajr_freshsales_input translate="label">
+                            <label>API key: </label>
+                            <comment></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </chajr_freshsales_input>
+                    </fields>
+                </chajr_freshsales>
+            </groups>
+        </chajr_freshsales>
+    </sections>
+</config>

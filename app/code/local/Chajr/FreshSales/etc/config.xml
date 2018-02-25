@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Chajr_FreshSales>
+            <version>0.2.0</version>
+        </Chajr_FreshSales>
+    </modules>
+    <global>
+        <models>
+            <mymodule>
+                <class>Chajr_FreshSales_Model</class>
+            </mymodule>
+        </models>
+        <helpers>
+            <mymodule>
+                <class>Chajr_FreshSales_Helper</class>
+            </mymodule>
+        </helpers>
+    </global>
+    <frontend>
+        
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <chajr_freshsales>
+                            <title>FreshSales configuration</title>
+                            <sort_order>500</sort_order>
+                        </chajr_freshsales>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <chajr_freshsales>FreshSales API Configuration</chajr_freshsales>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>
