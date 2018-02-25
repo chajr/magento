@@ -1,4 +1,11 @@
 <?php
+
+$allHeaders = getallheaders();
+
+if (isset($allHeaders['MAGENTO_DEV_MODE_ENABLED'])) {
+    $_SERVER['MAGE_IS_DEVELOPER_MODE'] = (bool)$allHeaders['MAGENTO_DEV_MODE_ENABLED'];
+}
+
 /**
  * Magento
  *
