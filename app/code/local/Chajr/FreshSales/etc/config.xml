@@ -7,15 +7,20 @@
     </modules>
     <global>
         <models>
-            <mymodule>
+            <chajr_freshsales>
                 <class>Chajr_FreshSales_Model</class>
-            </mymodule>
+            </chajr_freshsales>
         </models>
         <helpers>
-            <mymodule>
+            <chajr_freshsales>
                 <class>Chajr_FreshSales_Helper</class>
-            </mymodule>
+            </chajr_freshsales>
         </helpers>
+        <blocks>
+            <chajr_freshsales>
+                <class>Chajr_FreshSales_Block_Main</class>
+            </chajr_freshsales>
+        </blocks>
 
         <resources>
             <chajr_freshsales_setup>
