@@ -1,1 +1,3 @@
 app/etc/local.xml
+var/cache/*
+var/log/*.log
