@@ -22,6 +22,18 @@
             </chajr_freshsales>
         </blocks>
 
+        <events>
+            <customer_register_success>
+                <observers>
+                    <Chajr_FreshSales_customer_register_success>
+                        <type>singleton</type>
+                        <class>Chajr_FreshSales_Model_Observer</class>
+                        <method>customerRegisterSuccess</method>
+                    </Chajr_FreshSales_customer_register_success>
+                </observers>
+            </customer_register_success>
+        </events>
+
         <resources>
             <chajr_freshsales_setup>
                 <setup>
