@@ -25,15 +25,24 @@
                     <show_in_store>1</show_in_store>
 
                     <fields>
-                        <chajr_freshsales_input translate="label">
+                        <chajr_freshsales_input_api_key translate="label">
                             <label>API key: </label>
-                            <comment></comment>
+                            <comment>your_login.freshsales.io/personal-settings/api-settings</comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </chajr_freshsales_input>
+                        </chajr_freshsales_input_api_key>
+                        <chajr_freshsales_input_login translate="label">
+                            <label>FreshSales user name: </label>
+                            <comment>FreshSales login</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </chajr_freshsales_input_login>
                     </fields>
                 </chajr_freshsales>
             </groups>
