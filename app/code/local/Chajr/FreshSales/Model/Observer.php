@@ -2,6 +2,9 @@
 
 class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
 {
+    //@todo check that user already exists
+    //@todo update customer account => set freshsales id
+
     const FRESH_SALES_BASE_URL = '.freshsales.io/api/';
     const FRESH_SALES_PROTOCOL = 'https://';
 
@@ -14,6 +17,11 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
      * @var array
      */
     protected $customerData = [];
+
+    /**
+     * @var int
+     */
+    protected $customerId;
 
     /**
      * @param Varien_Event_Observer $observer
@@ -32,29 +40,29 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
 
     /**
      * @return $this
+     * @throws \InvalidArgumentException
      */
     protected function createFreshSalesCustomer()
     {
         $apiKey = Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_api_key');
 
+        if (!$apiKey) {
+            throw new \InvalidArgumentException('FreshSales API key is not defined.');
+        }
+
         $content = json_encode([
             'lead' => $this->customerData
         ]);
 
-        $uri = $this->baseApiUrl() . 'leads';
-
-        $this->curl->setHeaders([
-            'Content-Type:application/json',
-            'Accept:application/json',
-            'Authorization: Token token=' . $apiKey,
-        ]);
-
-        $this->curl->post($uri, $content);
-
-        $response = [
-            $this->curl->getStatus(),
-            $this->curl->getBody(),
-        ];
+        $response = $this->curl->post(
+            $this->baseApiUrl() . 'leads',
+            $content,
+            [
+                'Content-Type:application/json',
+                'Accept:application/json',
+                'Authorization: Token token=' . $apiKey,
+            ]
+        );
 
         return $this;
     }
@@ -69,17 +77,22 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
      */
     protected function loadCurlLib()
     {
-        $this->curl = Mage::helper('chajr_freshsales/curl');;
+        $this->curl = Mage::helper('chajr_freshsales/curl');
 
         return $this;
     }
 
     /**
      * @return string
+     * @throws \InvalidArgumentException
      */
     protected function baseApiUrl()
     {
         $login = Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_login');
+
+        if (!$login) {
+            throw new \InvalidArgumentException('FreshSales login is not defined.');
+        }
 
         return self::FRESH_SALES_PROTOCOL . $login . self::FRESH_SALES_BASE_URL;
     }
@@ -87,6 +100,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * @param Varien_Event_Observer $observer
      * @return $this
+     * @throws \UnexpectedValueException
      */
     protected function getCustomerData(Varien_Event_Observer $observer)
     {
@@ -96,8 +110,13 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         /** @var Mage_Customer_Model_Customer $customer */
         $customerData = $event->getCustomer()->getData();
 
+        if (empty($customerData)) {
+            throw new \UnexpectedValueException('Empty Magento user data.');
+        }
+
+        $this->customerId = $customerData['entity_id'];
+
         $this->customerData = [
-            'id' => $customerData['entity_id'],
             'first_name' => $customerData['firstname'],
             'last_name' => $customerData['lastname'],
             'email' => $customerData['email'],
