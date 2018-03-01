@@ -24,6 +24,11 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
     protected $customerId;
 
     /**
+     * @var int
+     */
+    protected $freshSalesCustomerId;
+
+    /**
      * @param Varien_Event_Observer $observer
      */
     public function customerRegisterSuccess(Varien_Event_Observer $observer)
@@ -31,6 +36,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         try {
             $this->loadCurlLib()
                 ->getCustomerData($observer)
+                ->checkThatUserExists()
                 ->createFreshSalesCustomer()
                 ->setUserFreshSalesId();
         } catch (\Exception $exception) {
@@ -40,16 +46,9 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
 
     /**
      * @return $this
-     * @throws \InvalidArgumentException
      */
-    protected function createFreshSalesCustomer()
+    protected function checkThatUserExists()
     {
-        $apiKey = Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_api_key');
-
-        if (!$apiKey) {
-            throw new \InvalidArgumentException('FreshSales API key is not defined.');
-        }
-
         $content = json_encode([
             'lead' => $this->customerData
         ]);
@@ -57,14 +56,57 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         $response = $this->curl->post(
             $this->baseApiUrl() . 'leads',
             $content,
-            [
-                'Content-Type:application/json',
-                'Accept:application/json',
-                'Authorization: Token token=' . $apiKey,
-            ]
+            $this->prepareRequestHeaders()
         );
 
+        $this->handleFreshSalesErrors($response);
+//        throw new \InvalidArgumentException('Customer already exists: ');
         return $this;
+    }
+
+    /**
+     * @return $this
+     * @throws \InvalidArgumentException
+     */
+    protected function createFreshSalesCustomer()
+    {
+        $content = json_encode([
+            'lead' => $this->customerData
+        ]);
+
+        $response = $this->curl->post(
+            $this->baseApiUrl() . 'leads',
+            $content,
+            $this->prepareRequestHeaders()
+        );
+
+        $this->handleFreshSalesErrors($response);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    protected function prepareRequestHeaders()
+    {
+        $apiKey = Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_api_key');
+
+        if (!$apiKey) {
+            throw new \InvalidArgumentException('FreshSales API key is not defined.');
+        }
+
+        return [
+            'Content-Type:application/json',
+            'Accept:application/json',
+            'Authorization: Token token=' . $apiKey,
+        ];
+    }
+
+    protected function handleFreshSalesErrors($response)
+    {
+        
     }
 
     protected function setUserFreshSalesId()
