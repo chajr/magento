@@ -6,7 +6,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
     const FRESH_SALES_PROTOCOL = 'https://';
 
     /**
-     * @var Mage_HTTP_Client_Curl
+     * @var Chajr_FreshSales_Helper_Curl
      */
     protected $curl;
 
@@ -50,7 +50,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         ]);
 
         $this->curl->post($uri, $content);
-        
+
         $response = [
             $this->curl->getStatus(),
             $this->curl->getBody(),
@@ -69,8 +69,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
      */
     protected function loadCurlLib()
     {
-        require_once Mage::getBaseDir('lib') . DS . 'Mage' . DS . 'HTTP' . DS . 'Client' . DS . 'Curl.php';
-        $this->curl = new Mage_HTTP_Client_Curl;
+        $this->curl = Mage::helper('chajr_freshsales/curl');;
 
         return $this;
     }
