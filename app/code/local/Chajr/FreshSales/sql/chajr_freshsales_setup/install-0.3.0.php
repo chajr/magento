@@ -19,7 +19,7 @@ $installer->addAttribute(
         'required' => false,
         'visible' => 1,
         'position' => 110,
-        'default' => 'Inactive',
+        'default' => '',
     ]
 );
 
