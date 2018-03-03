@@ -12,7 +12,7 @@ $installer->addAttribute(
     $entityTypeId,
     'customer_freshsales_id',
     [
-        'type' => 'int',
+        'type' => 'text',
         'label' => 'Customer FreshSales ID',
         'input' => 'text',
         'forms' => ['adminhtml_customer'],
