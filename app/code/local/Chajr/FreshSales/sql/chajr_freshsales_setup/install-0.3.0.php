@@ -10,7 +10,7 @@ $attributeGroupId = (int)$installer->getDefaultAttributeGroupId($entityTypeId, $
 
 $installer->addAttribute(
     $entityTypeId,
-    'customer_status',
+    'customer_freshsales_id',
     [
         'type' => 'int',
         'label' => 'Customer FreshSales ID',
@@ -27,11 +27,11 @@ $installer->addAttributeToGroup(
     $entityTypeId,
     $attributeSetId,
     $attributeGroupId,
-    'customer_status',
+    'customer_freshsales_id',
     100
 );
 
-$oAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'customer_status');
+$oAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', 'customer_freshsales_id');
 $oAttribute->setData('used_in_forms', ['adminhtml_customer']);
 $oAttribute->save();
 
