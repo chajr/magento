@@ -72,6 +72,9 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
 
         $this->handleFreshSalesErrors($response, $uri . ': ' . $content);
 
+        $leadData = json_decode($response['response'], true);
+        $this->freshSalesCustomerId = $leadData['lead']['id'];
+
         return $this;
     }
 
@@ -97,6 +100,7 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * @param array $response
      * @param $request
+     * @return $this
      * @throws \RuntimeException
      * @throws \OutOfRangeException
      * @throws \UnexpectedValueException
@@ -113,6 +117,8 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
                 . $response['code']
                 . '; Message: '
                 . $response['response']
+                . '; Error: '
+                . $response['error']
                 . '; Request: '
                 . $request
             );
@@ -140,11 +146,24 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
                     'Unexpected Server Error: ' . $decoded['errors']['message'] . '; Request: ' . $request
                 );
         }
+
+        return $this;
     }
 
+    /**
+     * @return $this
+     */
     protected function setUserFreshSalesId()
     {
-        
+        $customer = Mage::getModel('customer/customer')->load($this->customerId);
+
+        if ($customer->getId()) {
+            $customer->setData('customer_freshsales_id', (string)$this->freshSalesCustomerId);
+
+            $customer->save();
+        }
+
+        return $this;
     }
 
     /**
