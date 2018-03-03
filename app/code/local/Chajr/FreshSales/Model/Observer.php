@@ -2,7 +2,6 @@
 
 class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
 {
-    //@todo check that user already exists
     //@todo update customer account => set freshsales id
 
     const FRESH_SALES_BASE_URL = '.freshsales.io/api/';
@@ -36,37 +35,26 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         try {
             $this->loadCurlLib()
                 ->getCustomerData($observer)
-                ->checkThatUserExists()
                 ->createFreshSalesCustomer()
                 ->setUserFreshSalesId();
+        } catch (\InvalidArgumentException $exception) {
+            Mage::log($exception->getMessage(), Zend_Log::WARN, 'freshsales.log');
+        } catch (\UnexpectedValueException $exception) {
+            Mage::log($exception->getMessage(), Zend_Log::ERR, 'freshsales.log');
+        } catch (\RuntimeException $exception) {
+            Mage::log($exception->getMessage(), Zend_Log::ERR, 'freshsales.log');
         } catch (\Exception $exception) {
-            Mage::log('Creating FreshSales user exception:' . $exception->getMessage(), null, 'freshsales.log');
+            Mage::log($exception->getMessage(), Zend_Log::CRIT, 'exception.log');
         }
     }
 
     /**
      * @return $this
-     */
-    protected function checkThatUserExists()
-    {
-        $content = json_encode([
-            'lead' => $this->customerData
-        ]);
-
-        $response = $this->curl->post(
-            $this->baseApiUrl() . 'leads',
-            $content,
-            $this->prepareRequestHeaders()
-        );
-
-        $this->handleFreshSalesErrors($response);
-//        throw new \InvalidArgumentException('Customer already exists: ');
-        return $this;
-    }
-
-    /**
-     * @return $this
+     * @throws \UnexpectedValueException
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \OutOfRangeException
+     * @throws \DomainException
      */
     protected function createFreshSalesCustomer()
     {
@@ -74,13 +62,15 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
             'lead' => $this->customerData
         ]);
 
+        $uri = $this->baseApiUrl() . 'leads';
+
         $response = $this->curl->post(
-            $this->baseApiUrl() . 'leads',
+            $uri,
             $content,
             $this->prepareRequestHeaders()
         );
 
-        $this->handleFreshSalesErrors($response);
+        $this->handleFreshSalesErrors($response, $uri . ': ' . $content);
 
         return $this;
     }
@@ -104,9 +94,52 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
         ];
     }
 
-    protected function handleFreshSalesErrors($response)
+    /**
+     * @param array $response
+     * @param $request
+     * @throws \RuntimeException
+     * @throws \OutOfRangeException
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     * @throws \DomainException
+     */
+    protected function handleFreshSalesErrors(array $response, $request)
     {
-        
+        $decoded = json_decode($response['response'], true);
+
+        if (is_null($decoded)) {
+            throw new \DomainException(
+                'Undefined server response. Http code: '
+                . $response['code']
+                . '; Message: '
+                . $response['response']
+                . '; Request: '
+                . $request
+            );
+        }
+
+        switch ($response['code']) {
+            case 401:
+                throw new \InvalidArgumentException(
+                    'Authentication Failure: ' . $decoded['message'] . '; Request: ' . $request
+                );
+
+            case 403:
+                throw new \InvalidArgumentException(
+                    'Access Denied: ' . $decoded['errors']['message'] . '; Request: ' . $request
+                );
+
+            case 404:
+                throw new \UnexpectedValueException('Not found. Request: ' . $request);
+
+            case 429:
+                throw new \OutOfRangeException('Too many requests. Request: ' . $request);
+
+            case 500:
+                throw new \RuntimeException(
+                    'Unexpected Server Error: ' . $decoded['errors']['message'] . '; Request: ' . $request
+                );
+        }
     }
 
     protected function setUserFreshSalesId()
