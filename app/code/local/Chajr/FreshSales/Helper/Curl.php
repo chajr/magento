@@ -76,7 +76,11 @@ class Chajr_FreshSales_Helper_Curl
         $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         $errors = curl_error($this->curl);
 
-        return [$httpCode, $errors, $response];
+        return [
+            'code' => $httpCode,
+            'error' => $errors,
+            'response' => $response
+        ];
     }
 
     public function __destruct()
