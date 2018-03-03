@@ -200,8 +200,6 @@ class Chajr_FreshSales_Model_Observer extends Mage_Core_Model_Abstract
     {
         /** @var Varien_Event $event */
         $event = $observer->getEvent();
-
-        /** @var Mage_Customer_Model_Customer $customer */
         $customerData = $event->getCustomer()->getData();
 
         if (empty($customerData)) {
