@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "741eef22f754578472c12c9ac2c17794",
+    "content-hash": "01ad95b539e56e8c251b928cb9dba11c",
     "packages": [],
     "packages-dev": [
         {
@@ -308,7 +308,37 @@
                 "source": "https://github.com/Cotya/magento-composer-installer/tree/master",
                 "issues": "https://github.com/Cotya/magento-composer-installer/issues"
             },
-            "time": "2017-11-19T10:33:03+00:00"
+            "time": "2017-11-19 10:33:03"
+        },
+        {
+            "name": "mikey179/vfsStream",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mikey179/vfsStream.git",
+                "reference": "063fb10633f10c5ccbcac26227e94f46d9336f90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mikey179/vfsStream/zipball/063fb10633f10c5ccbcac26227e94f46d9336f90",
+                "reference": "063fb10633f10c5ccbcac26227e94f46d9336f90",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "org\\bovigo\\vfs\\": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "homepage": "http://vfs.bovigo.org/",
+            "time": "2013-04-01T10:41:02+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -370,7 +400,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-06T15:47:00+00:00"
+            "time": "2015-10-06 15:47:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -505,7 +535,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2018-01-06T05:27:16+00:00"
+            "time": "2018-01-06 05:27:16"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -554,7 +584,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2017-12-04T15:11:28+00:00"
+            "time": "2017-12-04 15:11:28"
         },
         {
             "name": "phpunit/phpunit",
@@ -628,7 +658,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-02-09T06:33:19+00:00"
+            "time": "2015-02-09 06:33:19"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -732,7 +762,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "sebastian/comparator",
@@ -796,7 +826,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-03-07T10:34:43+00:00"
+            "time": "2017-03-07 10:34:43"
         },
         {
             "name": "sebastian/diff",
@@ -848,7 +878,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-05-22T07:24:03+00:00"
+            "time": "2017-05-22 07:24:03"
         },
         {
             "name": "sebastian/environment",
@@ -898,7 +928,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2017-02-28T08:18:59+00:00"
+            "time": "2017-02-28 08:18:59"
         },
         {
             "name": "sebastian/exporter",
@@ -965,7 +995,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2017-02-26T13:09:30+00:00"
+            "time": "2017-02-26 13:09:30"
         },
         {
             "name": "sebastian/recursion-context",
@@ -1018,7 +1048,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2016-10-03T07:41:43+00:00"
+            "time": "2016-10-03 07:41:43"
         },
         {
             "name": "sebastian/version",
@@ -1122,7 +1152,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-26T15:46:28+00:00"
+            "time": "2018-02-26 15:46:28"
         },
         {
             "name": "symfony/debug",
@@ -1178,7 +1208,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-02-28T21:49:22+00:00"
+            "time": "2018-02-28 21:49:22"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1237,7 +1267,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-01-30T19:27:44+00:00"
+            "time": "2018-01-30 19:27:44"
         },
         {
             "name": "symfony/yaml",
@@ -1286,7 +1316,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:36:31+00:00"
+            "time": "2018-01-03 07:36:31"
         }
     ],
     "aliases": [],

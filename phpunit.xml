@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<phpunit cacheTokens="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         strict="false"
+         verbose="false"
+         bootstrap="app/code/community/EcomDev/PHPUnit/bootstrap.php">
+    <listeners>
+        <listener file="app/code/community/EcomDev/PHPUnit/Test/Listener.php" class="EcomDev_PHPUnit_Test_Listener" />
+    </listeners>
+    <testsuite name="Magento Test Suite">
+        <file>app/code/community/EcomDev/PHPUnit/Test/Suite.php</file>
+    </testsuite>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">app/code/core</directory>
+            <directory suffix=".php">app/code/community</directory>
+            <directory suffix=".php">lib</directory>
+            <file>app/Mage.php</file>
+            <directory suffix=".phtml">app/design</directory>
+        </blacklist>
+        <whitelist>
+            <directory>app/code/local</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="clover" target="var/phpunit/clover.xml" logIncompleteSkipped="false"/>
+    </logging>
+</phpunit>
