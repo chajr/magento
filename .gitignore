@@ -2,3 +2,4 @@ app/etc/local.xml
 var/cache/*
 var/log/*.log
 var/session/*
+var/connect/*
