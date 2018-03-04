@@ -32,6 +32,16 @@
                     </Chajr_FreshSales_customer_register_success>
                 </observers>
             </customer_register_success>
+
+            <core_block_abstract_prepare_layout_after>
+                <observers>
+                    <Chajr_FreshSales_observer>
+                        <type>singleton</type>
+                        <class>Chajr_FreshSales_Model_Observer</class>
+                        <method>injectTabs</method>
+                    </Chajr_FreshSales_observer>
+                </observers>
+            </core_block_abstract_prepare_layout_after>
         </events>
 
         <resources>
@@ -80,5 +90,12 @@
                 </admin>
             </resources>
         </acl>
+        <!--<layout>-->
+            <!--<updates>-->
+                <!--<modulename>-->
+                    <!--<file>freshsales.xml</file>-->
+                <!--</modulename>-->
+            <!--</updates>-->
+        <!--</layout>-->
     </adminhtml>
 </config>
