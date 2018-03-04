@@ -14,8 +14,8 @@
     <listeners>
         <listener file="app/code/community/EcomDev/PHPUnit/Test/Listener.php" class="EcomDev_PHPUnit_Test_Listener" />
     </listeners>
-    <testsuite name="Magento Test Suite">
-        <file>app/code/community/EcomDev/PHPUnit/Test/Suite.php</file>
+    <testsuite name="FreshSales Curl">
+        <file>app/code/local/Chajr/FreshSales/Test/Helper/Curl.php</file>
     </testsuite>
     <filter>
         <blacklist>
