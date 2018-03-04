@@ -28,23 +28,18 @@ class Chajr_FreshSales_Helper_Account
 
     /**
      * @param Varien_Event_Observer $observer
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \OutOfRangeException
+     * @throws \DomainException
      */
     public function linkCustomerToFreshSales(Varien_Event_Observer $observer)
     {
-        try {
-            $this->loadCurlLib()
-                ->getCustomerData($observer)
-                ->createFreshSalesCustomer()
-                ->setUserFreshSalesId();
-        } catch (\InvalidArgumentException $exception) {
-            Mage::log($exception->getMessage(), Zend_Log::WARN, 'freshsales.log');
-        } catch (\UnexpectedValueException $exception) {
-            Mage::log($exception->getMessage(), Zend_Log::ERR, 'freshsales.log');
-        } catch (\RuntimeException $exception) {
-            Mage::log($exception->getMessage(), Zend_Log::ERR, 'freshsales.log');
-        } catch (\Exception $exception) {
-            Mage::log($exception->getMessage(), Zend_Log::CRIT, 'exception.log');
-        }
+        $this->loadCurlLib()
+            ->getCustomerData($observer)
+            ->createFreshSalesCustomer()
+            ->setUserFreshSalesId();
     }
 
     /**
