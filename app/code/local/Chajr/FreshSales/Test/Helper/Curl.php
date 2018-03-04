@@ -10,7 +10,7 @@ class Chajr_FreshSales_Test_Helper_Curl extends EcomDev_PHPUnit_Test_Case
     public function testCurlExecution()
     {
         /** @var PHPUnit_Framework_MockObject_MockObject|Chajr_FreshSales_Helper_Curl $mock */
-        $mock = $this->getMockBuilder('Chajr_FreshSales_Helper_Curl')
+        $mock = $this->getMockBuilder(Chajr_FreshSales_Helper_Curl::class)
             ->setMethods(['handleCurlResponse'])
             ->getMock();
 

@@ -28,6 +28,7 @@ class Chajr_FreshSales_Helper_Account
 
     /**
      * @param Varien_Event_Observer $observer
+     * @return int
      * @throws \UnexpectedValueException
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
@@ -40,6 +41,8 @@ class Chajr_FreshSales_Helper_Account
             ->getCustomerData($observer)
             ->createFreshSalesCustomer()
             ->setUserFreshSalesId();
+
+        return $this->freshSalesCustomerId;
     }
 
     /**
@@ -137,7 +140,7 @@ class Chajr_FreshSales_Helper_Account
 
             case 500:
                 throw new \RuntimeException(
-                    'Unexpected Server Error: ' . $decoded['errors']['message'] . '; Request: ' . $request
+                    'Unexpected Server Error: ' . $decoded['errors']['message'][0] . '; Request: ' . $request
                 );
         }
 

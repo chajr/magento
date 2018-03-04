@@ -15,7 +15,7 @@ class Chajr_FreshSales_Test_Helper_Admin extends EcomDev_PHPUnit_Test_Case
         $observer->setEvent((new Varien_Object)->setBlock($block));
 
         /** @var PHPUnit_Framework_MockObject_MockObject|Chajr_FreshSales_Helper_Admin $mock */
-        $mockAdmin = $this->getMockBuilder('Chajr_FreshSales_Helper_Admin')
+        $mockAdmin = $this->getMockBuilder(Chajr_FreshSales_Helper_Admin::class)
             ->setMethods(['getCustomer', 'getLogin', 'getRequest'])
             ->getMock();
 

@@ -17,6 +17,7 @@
     <testsuite name="FreshSales">
         <file>app/code/local/Chajr/FreshSales/Test/Helper/Curl.php</file>
         <file>app/code/local/Chajr/FreshSales/Test/Helper/Admin.php</file>
+        <file>app/code/local/Chajr/FreshSales/Test/Helper/Account.php</file>
     </testsuite>
     <filter>
         <blacklist>
