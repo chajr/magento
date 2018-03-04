@@ -2,7 +2,8 @@
 
 class Chajr_FreshSales_Helper_Account
 {
-    const FRESH_SALES_BASE_URL = '.freshsales.io/api/';
+    const FRESH_SALES_BASE_URL = '.freshsales.io/';
+    const FRESH_SALES_PAGE = 'api/';
     const FRESH_SALES_PROTOCOL = 'https://';
 
     /**
@@ -186,7 +187,7 @@ class Chajr_FreshSales_Helper_Account
             throw new \InvalidArgumentException('FreshSales login is not defined.');
         }
 
-        return self::FRESH_SALES_PROTOCOL . $login . self::FRESH_SALES_BASE_URL;
+        return self::FRESH_SALES_PROTOCOL . $login . self::FRESH_SALES_BASE_URL . self::FRESH_SALES_PAGE;
     }
 
     /**
