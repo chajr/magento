@@ -14,8 +14,9 @@
     <listeners>
         <listener file="app/code/community/EcomDev/PHPUnit/Test/Listener.php" class="EcomDev_PHPUnit_Test_Listener" />
     </listeners>
-    <testsuite name="FreshSales Curl">
+    <testsuite name="FreshSales">
         <file>app/code/local/Chajr/FreshSales/Test/Helper/Curl.php</file>
+        <file>app/code/local/Chajr/FreshSales/Test/Helper/Admin.php</file>
     </testsuite>
     <filter>
         <blacklist>

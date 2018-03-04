@@ -25,7 +25,7 @@ class Chajr_FreshSales_Helper_Admin
      */
     protected function addTab($block)
     {
-        $customer = Mage::registry('current_customer');
+        $customer = $this->getCustomer();
 
         if (is_null($customer)) {
             return $this;
@@ -33,10 +33,8 @@ class Chajr_FreshSales_Helper_Admin
 
         $customer->getCustomerFreshsalesId();
 
-        $login = Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_login');
-
         $uri = Chajr_FreshSales_Helper_Account::FRESH_SALES_PROTOCOL
-            . $login
+            . $this->getLogin()
             . Chajr_FreshSales_Helper_Account::FRESH_SALES_BASE_URL
             . 'leads/view/'
             . $customer->getCustomerFreshsalesId();
@@ -55,6 +53,22 @@ class Chajr_FreshSales_Helper_Admin
         $block->setActiveTab('account');
 
         return $this;
+    }
+
+    /**
+     * @return Mage_Customer_Model_Customer
+     */
+    protected function getCustomer()
+    {
+        return Mage::registry('current_customer');
+    }
+
+    /**
+     * @return string
+     */
+    protected function getLogin()
+    {
+        return Mage::getStoreConfig('chajr_freshsales/chajr_freshsales/chajr_freshsales_input_login');
     }
 
     /**
