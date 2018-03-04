@@ -6,7 +6,7 @@ class Chajr_FreshSales_Helper_Admin
      * @param Varien_Event_Observer $observer
      * @return $this
      */
-    public function addFreshSalesTab($observer)
+    public function addFreshSalesTab(Varien_Event_Observer $observer)
     {
         $block = $observer->getEvent()->getBlock();
 
@@ -51,6 +51,8 @@ class Chajr_FreshSales_Helper_Admin
             ],
             'account'
         );
+
+        $block->setActiveTab('account');
 
         return $this;
     }
