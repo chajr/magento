@@ -1,5 +1,7 @@
 app/etc/local.xml
+app/etc/local.xml.phpunit
 var/cache/*
 var/log/*.log
 var/session/*
 var/connect/*
+vendor

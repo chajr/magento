@@ -1,0 +1,18 @@
+{
+    "require-dev": {
+        "ecomdev/ecomdev_phpunit": "0.3.*"
+    },
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.firegento.com"
+        }
+    ],
+    "extra": {
+        "magento-root-dir": "."
+    }
+}
