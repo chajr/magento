@@ -96,13 +96,15 @@ class Chajr_FreshSales_Helper_Account
 
     /**
      * @param array $response
-     * @param $request
+     * @param string $request
      * @return $this
      * @throws \RuntimeException
      * @throws \OutOfRangeException
      * @throws \UnexpectedValueException
      * @throws \InvalidArgumentException
      * @throws \DomainException
+     *
+     * @todo need to be refactored because of to big complexity
      */
     protected function handleFreshSalesErrors(array $response, $request)
     {
@@ -121,16 +123,30 @@ class Chajr_FreshSales_Helper_Account
             );
         }
 
+        /**
+         * Because FreshSales API return output that is not standardized
+         * we need to check that each json has properly values.
+         * Bellow examples of 500 http code sample outputs
+         *
+         * @example code: 500 output: {"error_code":500}
+         * @example 500 output: {"errors":{"code":500,"message":["Last name can't be blank"]}}
+         */
         switch ($response['code']) {
             case 401:
-                throw new \InvalidArgumentException(
-                    'Authentication Failure: ' . $decoded['message'] . '; Request: ' . $request
-                );
+                if (isset($decoded['message'])) {
+                    throw new \InvalidArgumentException(
+                        'Authentication Failure: ' . $decoded['message'] . '; Request: ' . $request
+                    );
+                }
+                $this->handleUndefinedResponse($decoded, $request);
 
             case 403:
-                throw new \InvalidArgumentException(
-                    'Access Denied: ' . $decoded['errors']['message'] . '; Request: ' . $request
-                );
+                if (isset($decoded['errors']['message'])) {
+                    throw new \InvalidArgumentException(
+                        'Access Denied: ' . $decoded['errors']['message'] . '; Request: ' . $request
+                    );
+                }
+                $this->handleUndefinedResponse($decoded, $request);
 
             case 404:
                 throw new \UnexpectedValueException('Not found. Request: ' . $request);
@@ -139,12 +155,27 @@ class Chajr_FreshSales_Helper_Account
                 throw new \OutOfRangeException('Too many requests. Request: ' . $request);
 
             case 500:
-                throw new \RuntimeException(
-                    'Unexpected Server Error: ' . $decoded['errors']['message'][0] . '; Request: ' . $request
-                );
+                if (isset($decoded['errors']['message'][0])) {
+                    throw new \RuntimeException(
+                        'Unexpected Server Error: ' . $decoded['errors']['message'][0] . '; Request: ' . $request
+                    );
+                }
+                $this->handleUndefinedResponse($decoded, $request);
         }
 
         return $this;
+    }
+
+    /**
+     * @param array $decoded
+     * @param string $request
+     * @throws \UnexpectedValueException
+     */
+    protected function handleUndefinedResponse(array $decoded, $request)
+    {
+        throw new \UnexpectedValueException(
+            'Undefined response format: ' . json_encode($decoded) . '; Request: ' . $request
+        );
     }
 
     /**

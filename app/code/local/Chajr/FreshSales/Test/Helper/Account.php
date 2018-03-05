@@ -172,6 +172,24 @@ class Chajr_FreshSales_Test_Helper_Account extends EcomDev_PHPUnit_Test_Case
     }
 
     /**
+     * @expectedException UnexpectedValueException
+     */
+    public function testCreateAccountWithUndefinedOutput()
+    {
+        $curl = $this->getCurlLib([
+            'code' => 500,
+            'error' => '',
+            'response' => '{"error_code":500}',
+        ]);
+
+        $account = $this->createFullAccount();
+
+        $this->setCurl($account, $curl);
+
+        $account->linkCustomerToFreshSales($this->getObserver());
+    }
+
+    /**
      * @expectedException DomainException
      */
     public function testCreateAccountWithUndefinedError()
